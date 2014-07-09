@@ -3,10 +3,19 @@
 
 using namespace std;
 
-int main(int argc, const char * argv[])
+int main(int argc, char * argv[])
 {
-    cout << argv[1];
+    char* rootExprString = argv[1];
+    if (expr::isNumeric(rootExprString)) cout << rootExprString;
+    else {
+        expr* expression = new expr(rootExprString);
+    }
 
+   // expr* rootExpr = new
+    //    expr* myExpr = new expr(rootExpr);
+
+    //expr* test= new lit(rootExpr);
 
 
 }
+
