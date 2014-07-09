@@ -1,0 +1,8 @@
+*.layout
+*.cbp
+*.autosave
+*.pro
+*.pro.user
+*.depend
+bin/
+obj/
