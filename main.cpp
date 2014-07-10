@@ -3,14 +3,26 @@
 
 using namespace std;
 
+/*_Bool string_is_number(char const *str) {
+  while(*str) {
+    if(!isdigit(*str)) {
+      return 0;
+    }
+    ++str;
+  }
+  return 1;
+}*/
+
 int main(int argc, char * argv[])
 {
     char* rootExprString = argv[1];
-    if (expr::isNumeric(rootExprString)) cout << rootExprString;
+    if (expr::isLiteral(rootExprString)) cout << rootExprString;
     else {
-        expr* expression = new expr(rootExprString);
+    cout << "false";
+        //expr* expression = new expr(rootExprString);
     }
 
+   // expr::stringToInt(rootExprString);
    // expr* rootExpr = new
     //    expr* myExpr = new expr(rootExpr);
 
