@@ -17,8 +17,11 @@ public:
     ~expr();
     bool static isNumeric(char*);
     bool static isLiteral(char*);
-    int static stringToInt(char*);
+    int stringToInt(char*);
+    int strLength(char*);
     int getRootOpPos(char*);
+
+    void out(expr*);
 };
 
 expr::~expr()
@@ -27,12 +30,28 @@ expr::~expr()
     if(this->rightExpr)delete this->rightExpr;
 }
 
+void expr::out(expr* root)
+{
+
+}
+
+int expr::strLength(char *str)
+{
+        int strSize = 0;
+        while (*str)
+        {
+            strSize++;
+            *str++;
+        }
+        return strSize;
+}
+
 bool expr::isLiteral(char *str)
 {
     int i=0;
     while(str[i])
     {
-    if(str[i]=='+'||str[i]=='/'||str[i]=='*') return false;
+    if(str[i]=='+'||str[i]=='-'||str[i]=='*') return false;
     i++;
     }
     return true;
@@ -40,7 +59,8 @@ bool expr::isLiteral(char *str)
 
 bool expr::isNumeric(char *str)
 {
-    while (*str){
+    while (*str)
+    {
         if (!isdigit(*str)) return false;
         *str++;
     }
@@ -84,7 +104,7 @@ public:
 
 expr::expr(char* str)
 {
-    if(isLiteral(str)) std::cout << str;
+    if(isLiteral(str)) std::cout << "check" << std::endl;
     else
     {
         int pos = this->getRootOpPos(str);
@@ -101,12 +121,13 @@ expr::expr(char* str)
         {
             this->leftExpr =  new expr(left);
         }
+        int strSize = strLength(str);
 
-        int strSize = sizeof(str)/sizeof(str[0]);
-        char* right = new char[strSize-pos];
-        for (int i = strSize; i<strSize;i++)
+        std::cout << strSize << std::endl;
+        char* right = new char[strSize-(pos+1)];
+        for (int i = pos+1; i<strSize;i++)
         {
-            right[i-strSize]=str[i];
+            right[i-(pos+1)]=str[i];
         }
         if(isNumeric(right)) this->rightExpr = new number(right);
         else if(isLiteral(right)&&!(isNumeric(right))) this->rightExpr = new letters(right);
@@ -121,14 +142,15 @@ expr::expr(char* str)
 }
 
 int expr::getRootOpPos(char *str){
-    int pos=0;
+    int pos=0, multiPos=0;
     while (*str)
     {
-        if(*str == '-' || *str == '+'){
-            return pos;
-        }
+        if(*str == '-' || *str == '+') return pos;
+        else if(*str == '*'&& multiPos==0) multiPos=pos;
         *str++; pos++;
     }
+    if(multiPos!=0) return multiPos;
+    else return -1;
 
 }
 

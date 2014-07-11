@@ -16,10 +16,11 @@ using namespace std;
 int main(int argc, char * argv[])
 {
     char* rootExprString = argv[1];
-    if (expr::isLiteral(rootExprString)) cout << rootExprString;
-    else {
-    cout << "false";
-        //expr* expression = new expr(rootExprString);
+    if (expr::isLiteral(rootExprString)) cout << rootExprString <<endl;
+    else
+    {
+        cout << "false"<<endl;
+        expr* expression = new expr(rootExprString);
     }
 
    // expr::stringToInt(rootExprString);
